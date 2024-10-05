@@ -1,16 +1,9 @@
-import occupied_seat from 'assets/images/occupied_seat.png';
-import free_seat from 'assets/images/free_seat.png';
+
 
 /*Q1. JS Variable needs to be created here. Below variable is just an example. Try to add more attributes.*/
 const initialTravellers = [
-  {
-    id: 1, name: 'Jack', phone: 88885555,
-    bookingTime: new Date(),
-  },
-  {
-    id: 2, name: 'Rose', phone: 88884444,
-    bookingTime: new Date(),
-  },
+  { id: 1, name: 'Jack', phone: 88885555, email: 'jack@example.com', bookingTime: new Date() },
+  { id: 2, name: 'Rose', phone: 88884444, email: 'rose@example.com', bookingTime: new Date() },
 ];
 
 
@@ -35,25 +28,23 @@ function Display(props) {
           <th>ID</th>
           <th>Name</th>
           <th>Phone</th>
+          <th>Email</th>
           <th>Booking Time</th>
         </tr>
       </thead>
       <tbody>
         {/*Q3. write code to call the JS variable defined at the top of this function to render table rows.*/}
+        {props.travellers.map(traveller => (
+          <tr key={traveller.id}>
+            <td>{traveller.id}</td>
+            <td>{traveller.name}</td>
+            <td>{traveller.phone}</td>
+            <td>{traveller.email}</td>
+            <td>{traveller.bookingTime.toLocaleString()}</td>
+          </tr>
+        ))}
       </tbody>
     </table>
-  );
-}
-
-function displayFreeSeats(props){
-  /*Placeholder to display free seats*/
-  return (
-  <>
-    <h2>Free Seats</h2>
-    <p>1</p>
-    <p>2</p>
-    <p>3</p>
-  </>
   );
 }
 
@@ -101,15 +92,28 @@ class Delete extends React.Component {
   }
 }
 
+function DisplayFreeSeats({ freeSeats, totalSeats }) {
+  return (
+    <div>
+      <h3>Available Seats: {freeSeats}/{totalSeats}</h3>
+    </div>
+  );
+}
+
 class Homepage extends React.Component {
 	constructor() {
 	super();
 	}
 	render(){
+    const totalSeats = 10; // Total number of seats available
+    const { travellers } = this.props; // Get the travellers from props
+    const occupiedSeats = travellers.length; // Calculate occupied seats
+    const freeSeats = totalSeats - occupiedSeats; // Calculate free seats
 	return (
 	<div>
 		{/*Q2. Placeholder for Homepage code that shows free seats visually.*/}
-    <displayFreeSeats/>
+    {/* Integrating DisplayFreeSeats sub-component */}
+    <DisplayFreeSeats freeSeats={freeSeats} totalSeats={totalSeats} />
 	</div>);
 	}
 }
@@ -117,7 +121,7 @@ class Homepage extends React.Component {
 class TicketToRide extends React.Component {
   constructor() {
     super();
-    this.state = { travellers: [], selector: 1};
+    this.state = { travellers: [], selector: 1, emptySeats: 10};
     this.bookTraveller = this.bookTraveller.bind(this);
     this.deleteTraveller = this.deleteTraveller.bind(this);
   }
@@ -159,14 +163,13 @@ class TicketToRide extends React.Component {
         <div>
           {/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
           {/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
-          {this.state.selector === 1 && <Homepage />}
-          {this.state.selector === 2 && <Add bookTraveller={this.bookTraveller} />}
-          {this.state.selector === 3 && <Display travellers={this.state.travellers} />}
-          {this.state.selector === 4 && <Delete deleteTraveller={this.deleteTraveller} />}
+          {this.state.selector === 1 && <Homepage travellers={this.state.travellers}/>}
           {/*Q3. Code to call component that Displays Travellers.*/}
-          
+          {this.state.selector === 3 && <Display travellers={this.state.travellers} />}
           {/*Q4. Code to call the component that adds a traveller.*/}
+          {this.state.selector === 2 && <Add bookTraveller={this.bookTraveller} />}
           {/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
+          {this.state.selector === 4 && <Delete deleteTraveller={this.deleteTraveller} />}
         </div>
       </div>
     );
