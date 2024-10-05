@@ -50,6 +50,7 @@ form {
 form input {
     width: 60%;
     padding: 8px 10px;
+    margin: 5px 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -142,3 +143,36 @@ td {
 tr:hover {
     background-color: #ddd; /* Highlight row on hover */
 }
+
+.seating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+  }
+
+.seating-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: auto;
+
+  }
+
+  .seat {
+    width: 120px;
+    height: 60px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .free {
+    background-color: green;
+    cursor: pointer;
+  }
+
+  .occupied {
+    background-color: grey;
+    cursor: not-allowed;
+  }
