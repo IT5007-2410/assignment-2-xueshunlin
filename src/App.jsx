@@ -116,7 +116,7 @@ class Delete extends React.Component {
     return (
       <form name="deleteTraveller" onSubmit={this.handleSubmit}>
 	    {/*Q5. Placeholder form to enter information on which passenger's ticket needs to be deleted. Below code is just an example.*/}
-        <input type="text" name="travellername" placeholder="Name" />
+        <input type="text" name="travellername" placeholder="Name" required/>
         <button>Delete</button>
       </form>
     );
