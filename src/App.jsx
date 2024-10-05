@@ -92,6 +92,11 @@ class Delete extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     /*Q5. Fetch the passenger details from the deletion form and call deleteTraveller()*/
+    const form = document.forms.deleteTraveller;
+    const passenger = {
+      name: form.travellername.value,
+    };
+    this.props.deleteTraveller(passenger);
   }
 
   render() {
@@ -156,14 +161,39 @@ class TicketToRide extends React.Component {
   }
 
   bookTraveller(passenger) {
-    this.setState((prevState) => ({
-      travellers: [...prevState.travellers, passenger],
-    }));
+    this.setState((prevState) => {
+      const travellers = [...prevState.travellers, passenger];
+      alert(`Passenger ${passenger.name} has been added!`);
+      return { travellers };
+    });
   }
 
   deleteTraveller(passenger) {
-	  /*Q5. Write code to delete a passenger from the traveller state variable.*/
+    /*Q5. Write code to delete a passenger from the traveller state variable.*/
+    this.setState((prevState) => {
+      // Filter out the traveller that matches the passenger's name
+      const updatedTravellers = prevState.travellers.filter(traveller => traveller.name !== passenger.name);
+
+      // If the length of the updatedTravellers is the same as the original, no traveller was removed
+      if (updatedTravellers.length === prevState.travellers.length) {
+        alert(`Passenger ${passenger.name} not found!`);
+        return null; // no state update needed
+      }
+
+      // Reset the id values to be sequential
+      const travellersWithUpdatedIds = updatedTravellers.map((traveller, index) => ({
+        ...traveller,
+        id: index + 1 // Reassign id to be the index + 1
+      }));
+
+      // Show alert after updating state
+      alert(`Passenger ${passenger.name} has been deleted!`);
+  
+      //Return the new state object with the updated travellers
+      return { travellers: travellersWithUpdatedIds };
+    });
   }
+
   render() {
     return (
       <div>
