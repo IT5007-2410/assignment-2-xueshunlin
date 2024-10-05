@@ -1,5 +1,3 @@
-
-
 /*Q1. JS Variable needs to be created here. Below variable is just an example. Try to add more attributes.*/
 const initialTravellers = [
   { id: 1, name: 'Jack', phone: 88885555, email: 'jack@example.com', bookingTime: new Date() },
@@ -9,9 +7,16 @@ const initialTravellers = [
 
 function TravellerRow(props) {
   {/*Q3. Placeholder to initialize local variable based on traveller prop.*/}
+  const { id, name, phone, email, bookingTime } = props.traveller;
   return (
     <tr>
 	  {/*Q3. Placeholder for rendering one row of a table with required traveller attribute values.*/}
+    {/* Render one row of the table with traveller attribute values */}
+    <td>{id}</td>
+      <td>{name}</td>
+      <td>{phone}</td>
+      <td>{email}</td>
+      <td>{bookingTime.toLocaleString()}</td>
     </tr>
   );
 }
@@ -36,13 +41,7 @@ function Display(props) {
         {/*Q3. write code to call the JS variable defined at the top of this function to render table rows.*/}
         {/*map the travellers array to create a table row for each traveller*/}
         {props.travellers.map(traveller => (
-          <tr key={traveller.id}>
-            <td>{traveller.id}</td>
-            <td>{traveller.name}</td>
-            <td>{traveller.phone}</td>
-            <td>{traveller.email}</td>
-            <td>{traveller.bookingTime.toLocaleString()}</td>
-          </tr>
+          <TravellerRow key={traveller.id} traveller={traveller} />
         ))}
       </tbody>
     </table>
@@ -103,7 +102,7 @@ class Delete extends React.Component {
     return (
       <form name="deleteTraveller" onSubmit={this.handleSubmit}>
 	    {/*Q5. Placeholder form to enter information on which passenger's ticket needs to be deleted. Below code is just an example.*/}
-	<input type="text" name="travellername" placeholder="Name" />
+        <input type="text" name="travellername" placeholder="Name" />
         <button>Delete</button>
       </form>
     );
@@ -124,13 +123,15 @@ class Homepage extends React.Component {
 	}
 	render(){
     const totalSeats = 10; // Total number of seats available
-    const { travellers } = this.props; // Get the travellers from props
-    const occupiedSeats = travellers.length; // Calculate occupied seats
+    const { travellers } = this.props;
+    const occupiedSeats = travellers.length;
     const freeSeats = totalSeats - occupiedSeats; // Calculate free seats
 	return (
-	<div>
+	<div id='Home'>
 		{/*Q2. Placeholder for Homepage code that shows free seats visually.*/}
     {/* Integrating DisplayFreeSeats sub-component */}
+    <h2>🚀 Welcome to TicketToRide! 🚀</h2>
+    <p> </p>
     <DisplayFreeSeats freeSeats={freeSeats} totalSeats={totalSeats} />
 	</div>);
 	}
@@ -198,23 +199,32 @@ class TicketToRide extends React.Component {
     return (
       <div>
         <h1>Ticket To Ride</h1>
-        <div>
-          {/*Q2. Code for Navigation bar. Use basic buttons to create a nav bar. Use states to manage selection.*/}
+        <div id='navigation'>
           <button onClick={() => this.setSelector(1)}>Homepage</button>
           <button onClick={() => this.setSelector(2)}>Add Traveller</button>
           <button onClick={() => this.setSelector(3)}>Display Travellers</button>
           <button onClick={() => this.setSelector(4)}>Delete Traveller</button>
         </div>
-        <div>
-          {/*Only one of the below four divisions is rendered based on the button clicked by the user.*/}
-          {/*Q2 and Q6. Code to call Instance that draws Homepage. Homepage shows Visual Representation of free seats.*/}
-          {this.state.selector === 1 && <Homepage travellers={this.state.travellers}/>}
-          {/*Q3. Code to call component that Displays Travellers.*/}
-          {this.state.selector === 3 && <Display travellers={this.state.travellers} />}
-          {/*Q4. Code to call the component that adds a traveller.*/}
-          {this.state.selector === 2 && <Add bookTraveller={this.bookTraveller} travellers = {this.state.travellers} />}
-          {/*Q5. Code to call the component that deletes a traveller based on a given attribute.*/}
-          {this.state.selector === 4 && <Delete deleteTraveller={this.deleteTraveller} />}
+        <div id='container'>
+          {this.state.selector === 1 && <Homepage travellers={this.state.travellers} />}
+          {this.state.selector === 3 && (
+            <>
+              <h2>Display Travellers</h2>
+              <Display travellers={this.state.travellers} />
+            </>
+          )}
+          {this.state.selector === 2 && (
+            <>
+              <h2>Add Traveller</h2>
+              <Add bookTraveller={this.bookTraveller} travellers={this.state.travellers} />
+            </>
+          )}
+          {this.state.selector === 4 && (
+            <>
+              <h2>Delete Traveller</h2>
+              <Delete deleteTraveller={this.deleteTraveller} />
+            </>
+          )}
         </div>
       </div>
     );

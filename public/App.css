@@ -1,0 +1,144 @@
+body
+{
+    background-color: #fefae0;
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars */
+}
+
+h1 {
+    color: #d4a373;
+    text-align: center;
+    font-size: xx-large;
+    font-family: cursive;
+}
+
+
+h2 {
+    color: #d4a373;
+    text-align: center;
+    font-family: Courier;
+}
+
+h3 {
+    color: #d4a373;
+    text-align: center;
+    font-family: Courier;
+}
+
+#Home h2{
+    font-size: xx-large;
+}
+
+#Home p {
+    font-size: 25px;
+    font-family: monospace;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    color: #d4a373;
+}
+
+form {
+    width: 600px;
+    margin: auto; 
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fffdf6;
+}
+
+form input {
+    width: 60%;
+    padding: 8px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 50px; 
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 20%;
+}
+
+form button:hover {
+    opacity: 0.8;
+}
+
+form p {
+    text-align: center;
+    font-size: 17px;
+    color: #d4a373;
+}
+
+/* Set margin separately for delete button */
+#delete button {
+    display: block;
+    margin: auto;
+}
+
+#navigation {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #A2B36B;
+    padding: 10px;
+}
+
+#navigation button {
+    display: inline-block;
+    background-color: #A2B36B;
+    color: white;
+    text-align: center;
+    padding: 15px 15px;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#navigation button:hover {
+    background-color: #8B995C;
+}
+
+#navigation button {
+    width: 200px;
+}
+
+#container{
+    width: 100%;
+    height: 100%;
+}
+
+
+table {
+    width: 70%; 
+    border-collapse: collapse; /* Remove space between table borders */
+    margin: 20px auto; 
+    font-size: 16px; 
+    text-align: center; /* Align text to the center */
+}
+
+/* Table Headers */
+th {
+    background-color: #adc178; 
+    color: white; 
+    padding: 12px; 
+}
+
+/* Table Cells */
+td {
+    border: 1px solid #dddddd;
+    padding: 12px; 
+}
+
+tr:hover {
+    background-color: #ddd; /* Highlight row on hover */
+}
