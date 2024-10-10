@@ -61,7 +61,7 @@ class Add extends React.Component {
     const id = this.props.travellers.length + 1;
     if (id > 10) {
       alert("All seats are occupied!");
-      return; // Stop form submission if validation fails
+      return; // if all seats are occupied, stop form submission
     }
     const name = form.travellername.value;
     const email = form.travelleremail.value;
@@ -69,7 +69,7 @@ class Add extends React.Component {
     const phoneNumber = form.travellerphone.value;
     if (!/^\d{8}$/.test(phoneNumber)) {
       alert("Phone number must be exactly 8 digits!");
-      return; // Stop form submission if validation fails
+      return; // if phone number is not 8 digits, stop form submission
     }
     
     const newTraveller = {
@@ -85,7 +85,7 @@ class Add extends React.Component {
 
   render() {
     return (
-      <form name="addTraveller" onSubmit={this.handleSubmit}>
+      <form name="addTraveller" onSubmit={this.handleSubmit}> 
 	    {/*Q4. Placeholder to enter passenger details. Below code is just an example.*/}
         <input type="text" name="travellername" placeholder="Name" required />
         <input type="text" name="travellerphone" placeholder="Phone" required />
@@ -105,6 +105,7 @@ class Delete extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     /*Q5. Fetch the passenger details from the deletion form and call deleteTraveller()*/
+    {/*call the deleteTraveller function from props with the passenger object*/}
     const form = document.forms.deleteTraveller;
     const passenger = {
       name: form.travellername.value,
@@ -128,6 +129,7 @@ function DisplaySeats({ travellers, totalSeats }) {
   const seatButtons = [];
 
   // Generate seat buttons based on total number of seats
+  {/*placeholder to generate seat buttons based on the total number of seats and occupied seats*/}
   for (let i = 1; i <= totalSeats; i++) {
     const isOccupied = i <= occupiedSeats;
     seatButtons.push(
@@ -152,6 +154,7 @@ function DisplaySeats({ travellers, totalSeats }) {
 function DisplayFreeSeats({ freeSeats, totalSeats }) {
   return (
     <div>
+      {/* Display the number of available seats */}
       <h3>Available Seats: {freeSeats}/{totalSeats}</h3>
     </div>
   );
@@ -181,6 +184,7 @@ class Homepage extends React.Component {
 class TicketToRide extends React.Component {
   constructor() {
     super();
+    {/* defining the initial state of the component */}
     this.state = { travellers: [], selector: 1, emptySeats: 10};
     this.bookTraveller = this.bookTraveller.bind(this);
     this.deleteTraveller = this.deleteTraveller.bind(this);
@@ -203,6 +207,7 @@ class TicketToRide extends React.Component {
   }
 
   bookTraveller(passenger) {
+    {/* function to add a new passenger to the travellers array */}
     this.setState((prevState) => {
       const travellers = [...prevState.travellers, passenger];
       alert(`Passenger ${passenger.name} has been added!`);
